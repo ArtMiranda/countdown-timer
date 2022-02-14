@@ -17,13 +17,13 @@
         <input onclick="stopCount()" type="submit" value="Stop">
         <input onclick="clearCount()" type="submit" value="Clear">
 
-        <div class="timeInput">
-            <input type="number" placeholder="Valor em segundos">
+        <div id="addTimeDiv" class="timeInput">
+            <button class="addTime">+5 minutes</button>
+            <button class="addTime">+1 minute</button>
+            <button class="addTime">+30 seconds</button>
+            <button class="addTime">+1 second</button>
 
-            <select id="select">
-                <option>Segundos</option>
-                <option>Minutos</option>
-                <option>Horas</option>
+            <button class="resetTime">Reset</button>
             </select>
 
         </div>
