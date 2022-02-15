@@ -68,18 +68,26 @@ function addTime(pressed) {
 
     var addTimeDiv = document.getElementById("addTimeDiv");
 
-    if (timeInSeconds == 0) {
-        timeInSeconds = parseFloat(pressed.value);
-        clearInterval(interval);
-        started = 0;
-        updateText();
+    if (isNaN(pressed.value) == false) {
+
+        if (timeInSeconds == 0) {
+            timeInSeconds = parseFloat(pressed.value);
+            clearInterval(interval);
+            started = 0;
+            updateText();
+        }
+
+        else {
+            timeInSeconds += parseFloat(pressed.value);
+            clearInterval(interval);
+            started = 0;
+            updateText();
+        }
+    }
+    else{
+
     }
 
-    else {
-        timeInSeconds += parseFloat(pressed.value);
-        clearInterval(interval);
-        updateText();
-    }
 }
 
 function convert(timeInSeconds) {
