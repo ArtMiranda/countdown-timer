@@ -5,27 +5,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timer e Intervalo</title>
+    <title>Timer</title>
+    <link href="style.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
 
     <div class="container">
 
-        <h1>0</h1>
-        <input onclick="start()" type="submit" value="Start">
-        <input onclick="stopCount()" type="submit" value="Stop">
+        <img class="timerImage" src="./assets/stopwatch(1).png">
+        <h1 class="h1">0s</h1>
+        <input type="image" src="./assets/play.png" onclick="start()" class="startButton" value="">
+        <input type="image" src="./assets/pause.png" onclick="pauseCount()" class="pauseButton" value="">
 
         <div id="addTimeDiv" class="timeInput">
-            <button value="300" class="addTime">+5 minutes</button>
-            <button value="60" class="addTime">+1 minute</button>
-            <button value="30" class="addTime">+30 seconds</button>
-            <button value="1" class="addTime">+1 second</button>            
+            <button value="300" class="addTime">+5 min</button>
+            <button value="60" class="addTime">+1 min</button>
+            <button value="30" class="addTime">+30 seg</button>
+            <button value="1" class="addTime">+1 seg</button>
         </div>
 
-        <input onclick="resetCount()" type="submit" value="Reset">  
+        <input onclick="resetCount()" class="reset" type="submit" value="Reset">
 
     </div>
+
     <script src="script.js"></script>
 
 

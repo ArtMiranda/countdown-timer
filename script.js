@@ -1,81 +1,89 @@
 var timeInSeconds = 0;
-
 var interval;
+var started = 0;
 
 let h = document.getElementsByTagName("h1")[0];
 
-function updateText(){
+function updateText() {
 
-    if(timeInSeconds != 0){    
-    h.innerText = convert(timeInSeconds);
+    if (timeInSeconds != 0) {
+        h.innerText = convert(timeInSeconds);
     }
-    else{
-        h.innerText = 0;
+    else {
+        h.innerText = 0 + "s";
     }
 
 }
 
-function start(){
-    if(timeInSeconds > 0){
-        interval = setInterval(startCounting, 1000);
-    }
-    else{
-        alert("Defina um tempo para cronometrar.")
-    }
-}
+function start() {
 
-function startCounting(){
-
-        if(timeInSeconds != 0){
-            h.innerHTML = convert(timeInSeconds);
-            timeInSeconds--;
-            updateText();
+    if (started == 0) {
+        if (timeInSeconds > 0) {
+            interval = setInterval(startCounting, 1000);
         }
-        else{
-            h.innerText = 0;
+        else {
+            alert("Defina um tempo para o alarme.")
         }
+        started = 1;
+    }
+
 }
 
-function stopCount(){
+function startCounting() {
 
+    if (timeInSeconds != 0) {
+        h.innerHTML = convert(timeInSeconds);
+        timeInSeconds--;
+        updateText();
+    }
+    else {
+        h.innerText = 0 + "s";
+    }
+}
+
+function pauseCount() {
     clearInterval(interval);
-    
+    started = 0;
 }
 
-function resetCount(){    
+function resetCount() {
     timeInSeconds = 0;
 
     let h = document.getElementsByTagName("h1")[0];
-    h.innerHTML = 0;
+    h.innerHTML = 0 + "s";
 
     clearInterval(interval);
+    started = 0;
 }
 
 
-document.getElementById("addTimeDiv").addEventListener("click", function(e){
+document.getElementById("addTimeDiv").addEventListener("click", function (e) {
     const pressed = e.target;
 
     addTime(pressed);
 
 });
 
-function addTime(pressed){
+function addTime(pressed) {
 
     var addTimeDiv = document.getElementById("addTimeDiv");
 
-    if(timeInSeconds == 0){
-    timeInSeconds = parseFloat(pressed.value);
-    updateText();
+    if (timeInSeconds == 0) {
+        timeInSeconds = parseFloat(pressed.value);
+        clearInterval(interval);
+        started = 0;
+        updateText();
     }
 
-    else{
+    else {
         timeInSeconds += parseFloat(pressed.value);
+        clearInterval(interval);
         updateText();
     }
 }
 
-function convert(timeInSeconds){
-    if(timeInSeconds == 0){
+function convert(timeInSeconds) {
+    if (timeInSeconds == 0) {
         return "";
     }
 
@@ -90,18 +98,18 @@ function convert(timeInSeconds){
 
     if (sec < 10) {
         sec = `0${sec}`;
-      }
-      if (min < 10) {
+    }
+    if (min < 10) {
         min = `0${min}`;
-      }
-    
-      if (parseInt(hours, 10) > 0) {
+    }
+
+    if (parseInt(hours, 10) > 0) {
         return `${parseInt(hours, 10)}h ${min}m ${sec}s`
-      }
-      else if (min == 0) {
+    }
+    else if (min == 0) {
         return `${sec}s`
-      }
-      else {
+    }
+    else {
         return `${min}m ${sec}s`
-      }
+    }
 }
