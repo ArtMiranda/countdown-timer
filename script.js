@@ -1,6 +1,9 @@
 var timeInSeconds = 0;
 var interval;
-var started = 0;
+var started = false;
+var playing = false;
+
+alarm = new Audio("./assets/alarm.ogg");
 
 let h = document.getElementsByTagName("h1")[0];
 
@@ -17,24 +20,38 @@ function updateText() {
 
 function start() {
 
-    if (started == 0) {
+
+    if (started == false) {
+
+        startAudio = new Audio("./assets/startSound.ogg");
+        startAudio.play();
+    
         if (timeInSeconds > 0) {
-            interval = setInterval(startCounting, 1000);
+            interval = setInterval(startCount, 1000);
+            started = true;
         }
         else {
-            alert("Defina um tempo para o alarme.")
+            alert("Defina um tempo para o alarme.");
+            startAudio.play();
         }
-        started = 1;
     }
-
 }
 
-function startCounting() {
+function startCount() {
 
     if (timeInSeconds != 0) {
+        playing = true;
         h.innerHTML = convert(timeInSeconds);
         timeInSeconds--;
         updateText();
+        if (timeInSeconds == 0) {
+            alarm.play();
+            let stopAlarm = window.confirm("Stop alarm?");
+
+            if (stopAlarm == true) {
+                alarm.pause();
+            }
+        }
     }
     else {
         h.innerText = 0 + "s";
@@ -42,8 +59,11 @@ function startCounting() {
 }
 
 function pauseCount() {
+    startAudio = 0;
+
+    playing = false;
     clearInterval(interval);
-    started = 0;
+    started = false;
 }
 
 function resetCount() {
@@ -53,7 +73,8 @@ function resetCount() {
     h.innerHTML = 0 + "s";
 
     clearInterval(interval);
-    started = 0;
+    started = false;
+    playing = false;
 }
 
 
@@ -73,22 +94,41 @@ function addTime(pressed) {
         if (timeInSeconds == 0) {
             timeInSeconds = parseFloat(pressed.value);
             clearInterval(interval);
-            started = 0;
+            started = false;
+            playing = false;
             updateText();
         }
 
         else {
             timeInSeconds += parseFloat(pressed.value);
             clearInterval(interval);
-            started = 0;
+            started = false;
+            playing = false;
             updateText();
         }
     }
-    else{
+    else {
 
     }
 
 }
+
+addEventListener("keyup", event => {
+    if (event.code == "Space" && timeInSeconds != 0) {
+        switch (playing) {
+
+            case false:
+                start();
+
+                break;
+
+            case true:
+                pauseCount();
+
+        }
+    }
+
+});
 
 function convert(timeInSeconds) {
     if (timeInSeconds == 0) {
