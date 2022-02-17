@@ -15,9 +15,22 @@
     <div class="container">
 
         <img class="timerImage" src="./assets/stopwatch(1).png">
+
+        <div class="time">
+
         <h1 class="h1">0s</h1>
+        </div>
+
         <input type="image" src="./assets/play.png" onclick="start()" class="startButton" value="">
         <input type="image" src="./assets/pause.png" onclick="pauseCount()" class="pauseButton" value="">
+
+
+        <div id="specificTime">
+        <label>Hours<input type="number" class="addTimeField" id="hourSelector" min="0" max="24"></label>
+        <label>Minutes<input type="number" class="addTimeField" id="minuteSelector" min="0" max="59"></label>
+        <label>Seconds<input type="number" class="addTimeField" id="secondSelector" min="0" max="59"></label>
+        <input type="submit" onclick="getTypedTime()" value="+" class="addButton">
+        </div>
 
         <div id="addTimeDiv" class="timeInput">
             <button value="3600" class="addTime">+1 hour</button>

@@ -85,6 +85,7 @@ document.getElementById("addTimeDiv").addEventListener("click", function (e) {
 
 });
 
+
 function addTime(pressed) {
 
     var addTimeDiv = document.getElementById("addTimeDiv");
@@ -160,4 +161,47 @@ function convert(timeInSeconds) {
     else {
         return `${min}m ${sec}s`
     }
+}
+
+
+let hourSelector = document.getElementById("hourSelector");
+let minuteSelector = document.getElementById("minuteSelector");
+let secondSelector = document.getElementById("secondSelector");
+
+
+function getTypedTime(){
+    
+    if(hourSelector.value < 25 && minuteSelector.value < 60 && secondSelector.value < 60){  
+    let selectedHoursInSeconds = hourSelector.value * 3600;
+
+    let selectedMinutesInSeconds = minuteSelector.value * 60;
+    let selectedSeconds = secondSelector.value;
+
+    let selectedTime = parseInt(selectedHoursInSeconds) + parseInt(selectedMinutesInSeconds) + parseInt(selectedSeconds);
+
+    if(isNaN(selectedTime) == false){
+        
+        console.log(selectedTime);
+    
+        timeInSeconds = selectedTime;
+    
+        playing = false;
+        clearInterval(interval);
+        started = false;
+    
+        updateText();
+    }
+
+    else{
+        alert("Preencha todos os campos corretamente!");
+    }
+    }
+
+    else{
+        alert("Preencha todos os campos corretamente!")
+    }
+  
+
+   
+    
 }
